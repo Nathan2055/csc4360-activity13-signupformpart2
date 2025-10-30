@@ -23,11 +23,20 @@ class _SignupScreenState extends State<SignupScreen>
   IconLabel? _selectedIcon;
   late AnimationController _progressController;
   double _progressValue = 0.0;
+  late AnimationController _passwordStrengthController;
+  double _passwordStrengthValue = 0.1;
+  Color _passwordStrengthColor = Colors.red;
 
   @override
   void initState() {
     super.initState();
     _progressController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 5))
+          ..addListener(() {
+            setState(() {});
+          })
+          ..repeat(reverse: true);
+    _passwordStrengthController =
         AnimationController(vsync: this, duration: const Duration(seconds: 5))
           ..addListener(() {
             setState(() {});
@@ -42,6 +51,7 @@ class _SignupScreenState extends State<SignupScreen>
     _passwordController.dispose();
     _dobController.dispose();
     _progressController.dispose();
+    _passwordStrengthController.dispose();
     super.dispose();
   }
 
@@ -196,6 +206,8 @@ class _SignupScreenState extends State<SignupScreen>
                 TextFormField(
                   controller: _passwordController,
                   obscureText: !_isPasswordVisible,
+                  onEditingComplete: _textFieldCallback,
+                  onChanged: _textFieldCallbackString,
                   decoration: InputDecoration(
                     labelText: 'Secret Password',
                     prefixIcon: const Icon(
@@ -230,6 +242,23 @@ class _SignupScreenState extends State<SignupScreen>
                     }
                     return null;
                   },
+                ),
+                const SizedBox(height: 10),
+                // Sign-up Progress Bar
+                const Text('Password strength:'),
+                const Text(
+                  '(Password should be longer than eight characters)',
+                  style: TextStyle(fontSize: 10),
+                ),
+                const Text(
+                  '(Password should include a mixture of upper and lower case letters, numbers, and symbols)',
+                  style: TextStyle(fontSize: 10),
+                ),
+                const SizedBox(height: 10),
+                LinearProgressIndicator(
+                  value: _passwordStrengthValue,
+                  color: _passwordStrengthColor,
+                  semanticsLabel: 'Password strength',
                 ),
                 const SizedBox(height: 30),
 
@@ -306,6 +335,62 @@ class _SignupScreenState extends State<SignupScreen>
     );
   }
 
+  void _updatePasswordStrength() {
+    setState(() {
+      _passwordStrengthValue = 0.1;
+
+      var condition1 = 0.0;
+      var condition2 = 0.0;
+      var condition3 = 0.0;
+      var condition4 = 0.0;
+      var password = _passwordController.text;
+      // Longer than eight characters
+      if (password.length > 8) {
+        condition1 = 0.25;
+      }
+      // Contains uppercase and lowercase letters
+      if (password.contains(RegExp(r'.*([A-Z]).*')) &&
+          password.contains(RegExp(r'.*([a-z]).*'))) {
+        condition2 = 0.25;
+      }
+      // Contains numbers
+      if (password.contains(RegExp(r'.*([0-9]).*'))) {
+        condition3 = 0.25;
+      }
+      // Contains symbols (check against each sequence of ASCII symbols)
+      if (password.contains(RegExp(r'.*([!-/]).*')) ||
+          password.contains(RegExp(r'.*([:-@]).*')) ||
+          password.contains(RegExp(r'.*([\[-`]).*')) ||
+          password.contains(RegExp(r'.*([{-~]).*'))) {
+        condition4 = 0.25;
+      }
+
+      //debugPrint('length:' + '$condition1');
+      //debugPrint('casing:' + '$condition2');
+      //debugPrint('numbers:' + '$condition3');
+      //debugPrint('symbols:' + '$condition4');
+
+      _passwordStrengthValue =
+          condition1 + condition2 + condition3 + condition4;
+
+      //debugPrint('semifinal:' + '$_passwordStrengthValue');
+
+      if (_passwordStrengthValue == 0.0) {
+        _passwordStrengthValue = 0.1;
+      }
+
+      if (_passwordStrengthValue == 1.0) {
+        _passwordStrengthColor = Colors.green;
+      } else {
+        _passwordStrengthColor = Colors.red;
+      }
+
+      //debugPrint('final:' + '$_passwordStrengthValue');
+
+      //debugPrint(' ');
+    });
+  }
+
   void _updateProgressBar() {
     setState(() {
       var condition1 = 0.0;
@@ -328,8 +413,18 @@ class _SignupScreenState extends State<SignupScreen>
     });
   }
 
-  void _updateProgressBarString(String unused) {
-    _updateProgressBar();
+  void _textFieldCallback() {
+    setState(() {
+      _updateProgressBar();
+      _updatePasswordStrength();
+    });
+  }
+
+  void _textFieldCallbackString(String unused) {
+    setState(() {
+      _updateProgressBar();
+      _updatePasswordStrength();
+    });
   }
 
   Widget _buildTextField({
@@ -348,8 +443,8 @@ class _SignupScreenState extends State<SignupScreen>
         fillColor: Colors.grey[50],
       ),
       validator: validator,
-      onEditingComplete: _updateProgressBar,
-      onChanged: _updateProgressBarString,
+      onEditingComplete: _textFieldCallback,
+      onChanged: _textFieldCallbackString,
     );
   }
 }
