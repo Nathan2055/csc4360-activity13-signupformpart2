@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'signup_screen.dart'; // Import for navigation
-import 'welcome_screen.dart';  // Import the new screen file
+import 'welcome_screen.dart'; // Import the new screen file
 import 'success_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -13,8 +13,8 @@ class WelcomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.deepPurple[50],
       body: Center(
-        // ... all the widget code for WelcomeScreen ...
-        ElevatedButton(
+        child: ElevatedButton(
+          child: const Text('Button'),
           onPressed: () {
             Navigator.push(
               context,
@@ -25,6 +25,7 @@ class WelcomeScreen extends StatelessWidget {
           },
           // ... rest of the button code ...
         ),
+        // ... all the widget code for WelcomeScreen ...
       ),
     );
   }
