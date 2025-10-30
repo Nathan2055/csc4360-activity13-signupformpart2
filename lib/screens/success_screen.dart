@@ -124,6 +124,10 @@ class _SuccessScreenState extends State<SuccessScreen> {
                   ),
 
                   const SizedBox(height: 20),
+
+                  avatar,
+                  avatarSpacing,
+
                   const Text(
                     'Your adventure begins now!',
                     style: TextStyle(fontSize: 18, color: Colors.grey),
