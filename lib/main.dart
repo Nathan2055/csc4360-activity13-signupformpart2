@@ -1,8 +1,5 @@
-// The Adventure Begins - Main Dart File
-// Replace lib/main.dart with this exciting code:
-
 import 'package:flutter/material.dart';
-import 'welcome_screen.dart'; // Import the new screen file
+import 'screens/welcome_screen.dart';
 
 void main() {
   runApp(const SignupAdventureApp());
@@ -14,9 +11,9 @@ class SignupAdventureApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Signup Adventure ',
+      title: 'Signup Adventure',
       theme: ThemeData(primarySwatch: Colors.deepPurple, fontFamily: 'Roboto'),
-      home: const WelcomeScreen(), // This points to your imported screen
+      home: const WelcomeScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

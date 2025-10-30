@@ -71,7 +71,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.deepPurple.withOpacity(0.5),
+                          color: Colors.deepPurple.withValues(alpha: 0.5),
                           blurRadius: 20,
                           spreadRadius: 5,
                         ),
