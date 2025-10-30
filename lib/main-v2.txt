@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:confetti/confetti.dart';
+import 'screens/welcome_screen.dart'; // Import the new screen file
 
 void main() {
   runApp(const SignupAdventureApp());
@@ -20,7 +21,7 @@ class SignupAdventureApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
         fontFamily: 'Roboto',
       ),
-      home: const WelcomeScreen(),
+      home: const WelcomeScreen(), // This points to your imported screen
       debugShowCheckedModeBanner: false,
     );
   }

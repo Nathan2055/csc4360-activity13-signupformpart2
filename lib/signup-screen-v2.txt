@@ -1,3 +1,7 @@
+// lib/screens/signup_screen.dart
+import 'package:flutter/material.dart';
+import 'success_screen.dart'; // Import for navigation
+
 // Signup Screen w/ Interactive Form
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -61,6 +65,19 @@ class _SignupScreenState extends State<SignupScreen> {
       });
     }
   }
+  
+  /*
+  void _submitForm() {
+    // ...
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SuccessScreen(userName: _nameController.text),
+      ),
+    );
+    // ...
+  }
+  */
 
   @override
   Widget build(BuildContext context) {
