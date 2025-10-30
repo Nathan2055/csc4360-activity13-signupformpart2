@@ -10,7 +10,8 @@ class SignupScreen extends StatefulWidget {
   State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _SignupScreenState extends State<SignupScreen>
+    with TickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -20,6 +21,19 @@ class _SignupScreenState extends State<SignupScreen> {
   bool _isLoading = false;
   final TextEditingController _iconController = TextEditingController();
   IconLabel? _selectedIcon;
+  late AnimationController _progressController;
+  double _progressValue = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _progressController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 5))
+          ..addListener(() {
+            setState(() {});
+          })
+          ..repeat(reverse: true);
+  }
 
   @override
   void dispose() {
@@ -27,6 +41,7 @@ class _SignupScreenState extends State<SignupScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     _dobController.dispose();
+    _progressController.dispose();
     super.dispose();
   }
 
@@ -235,7 +250,16 @@ class _SignupScreenState extends State<SignupScreen> {
                   },
                   dropdownMenuEntries: IconLabel.entries,
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
+
+                // Sign-up Progress Bar
+                const Text('Sign-up progress', style: TextStyle(fontSize: 20)),
+                const SizedBox(height: 10),
+                LinearProgressIndicator(
+                  value: _progressValue,
+                  semanticsLabel: 'Sign-up progress',
+                ),
+                const SizedBox(height: 30),
 
                 // Submit Button w/ Loading Animation
                 AnimatedContainer(
@@ -282,6 +306,32 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
+  void _updateProgressBar() {
+    setState(() {
+      var condition1 = 0.0;
+      var condition2 = 0.0;
+      var condition3 = 0.0;
+      var condition4 = 0.0;
+      if (_nameController.text != '') {
+        condition1 = 0.25;
+      }
+      if (_emailController.text != '') {
+        condition2 = 0.25;
+      }
+      if (_dobController.text != '') {
+        condition3 = 0.25;
+      }
+      if (_passwordController.text != '') {
+        condition4 = 0.25;
+      }
+      _progressValue = condition1 + condition2 + condition3 + condition4;
+    });
+  }
+
+  void _updateProgressBarString(String unused) {
+    _updateProgressBar();
+  }
+
   Widget _buildTextField({
     required TextEditingController controller,
     required String label,
@@ -298,6 +348,8 @@ class _SignupScreenState extends State<SignupScreen> {
         fillColor: Colors.grey[50],
       ),
       validator: validator,
+      onEditingComplete: _updateProgressBar,
+      onChanged: _updateProgressBarString,
     );
   }
 }
