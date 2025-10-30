@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:signup_app/models/icon_enum.dart';
 import 'success_screen.dart';
 
 // Signup Screen w/ Interactive Form
@@ -17,6 +18,8 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _dobController = TextEditingController();
   bool _isPasswordVisible = false;
   bool _isLoading = false;
+  final TextEditingController _iconController = TextEditingController();
+  IconLabel? _selectedIcon;
 
   @override
   void dispose() {
@@ -58,7 +61,10 @@ class _SignupScreenState extends State<SignupScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => SuccessScreen(userName: _nameController.text),
+            builder: (context) => SuccessScreen(
+              userName: _nameController.text,
+              selectedIcon: _selectedIcon,
+            ),
           ),
         );
       });
@@ -211,6 +217,25 @@ class _SignupScreenState extends State<SignupScreen> {
                   },
                 ),
                 const SizedBox(height: 30),
+
+                // Avatar Field
+                DropdownMenu<IconLabel>(
+                  controller: _iconController,
+                  enableFilter: false,
+                  requestFocusOnTap: true,
+                  leadingIcon: Icon(_selectedIcon?.icon),
+                  label: const Text('Avatar'),
+                  inputDecorationTheme: const InputDecorationTheme(
+                    border: OutlineInputBorder(),
+                  ),
+                  onSelected: (IconLabel? icon) {
+                    setState(() {
+                      _selectedIcon = icon;
+                    });
+                  },
+                  dropdownMenuEntries: IconLabel.entries,
+                ),
+                const SizedBox(height: 16),
 
                 // Submit Button w/ Loading Animation
                 AnimatedContainer(

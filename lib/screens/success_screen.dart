@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:confetti/confetti.dart';
+import 'package:signup_app/models/icon_enum.dart';
 
 // Tha Big Confetti Celebration
 class SuccessScreen extends StatefulWidget {
   final String userName;
+  final IconLabel? selectedIcon;
 
-  const SuccessScreen({super.key, required this.userName});
+  const SuccessScreen({
+    super.key,
+    required this.userName,
+    required this.selectedIcon,
+  });
 
   @override
   State<SuccessScreen> createState() => _SuccessScreenState();
@@ -32,6 +38,21 @@ class _SuccessScreenState extends State<SuccessScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Widget avatar = Container();
+    Widget avatarSpacing = Container();
+    Widget avatarSpacingTemplate = const SizedBox(height: 24);
+
+    if (widget.selectedIcon?.label == 'Smiley Face') {
+      avatar = Icon(Icons.sentiment_satisfied_outlined, size: 128);
+      avatarSpacing = avatarSpacingTemplate;
+    } else if (widget.selectedIcon?.label == 'Rocket') {
+      avatar = Icon(Icons.rocket, size: 128);
+      avatarSpacing = avatarSpacingTemplate;
+    } else if (widget.selectedIcon?.label == 'Paw Print') {
+      avatar = Icon(Icons.pets, size: 128);
+      avatarSpacing = avatarSpacingTemplate;
+    }
+
     return Scaffold(
       backgroundColor: Colors.deepPurple[50],
       body: Stack(
