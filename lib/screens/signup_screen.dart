@@ -20,6 +20,7 @@ class _SignupScreenState extends State<SignupScreen> {
   bool _isLoading = false;
   final TextEditingController _iconController = TextEditingController();
   IconLabel? _selectedIcon;
+  InputDecoration? _emailDecoration;
 
   @override
   void dispose() {
@@ -143,6 +144,22 @@ class _SignupScreenState extends State<SignupScreen> {
                       return 'Oops! That doesn\'t look like a valid email';
                     }
                     return null;
+                  },
+                  checker: () {
+                    if (_emailController.text.contains('@') &&
+                        _emailController.text.contains('.')) {
+                      setState(() {
+                        _emailDecoration = InputDecoration(
+                          labelText: 'Email Address',
+                          prefixIcon: Icon(Icons.email, color: Colors.green),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.green,
+                        );
+                      });
+                    }
                   },
                 ),
                 const SizedBox(height: 20),
@@ -287,17 +304,21 @@ class _SignupScreenState extends State<SignupScreen> {
     required String label,
     required IconData icon,
     required String? Function(String?) validator,
+    void Function()? checker,
+    InputDecoration? decorator,
   }) {
+    decorator ??= InputDecoration(
+      labelText: label,
+      prefixIcon: Icon(icon, color: Colors.deepPurple),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+      filled: true,
+      fillColor: Colors.grey[50],
+    );
     return TextFormField(
       controller: controller,
-      decoration: InputDecoration(
-        labelText: label,
-        prefixIcon: Icon(icon, color: Colors.deepPurple),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-        filled: true,
-        fillColor: Colors.grey[50],
-      ),
+      decoration: decorator,
       validator: validator,
+      onEditingComplete: checker,
     );
   }
 }
