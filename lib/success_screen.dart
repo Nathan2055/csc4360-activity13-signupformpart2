@@ -1,10 +1,6 @@
-// lib/screens/success_screen.dart
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:confetti/confetti.dart';
-import 'welcome_screen.dart';
-import 'signup_screen.dart';
-import 'success_screen.dart';
 
 // Tha Big Confetti Celebration
 class SuccessScreen extends StatefulWidget {
@@ -22,8 +18,9 @@ class _SuccessScreenState extends State<SuccessScreen> {
   @override
   void initState() {
     super.initState();
-    _confettiController =
-        ConfettiController(duration: const Duration(seconds: 10));
+    _confettiController = ConfettiController(
+      duration: const Duration(seconds: 10),
+    );
     _confettiController.play();
   }
 
@@ -121,7 +118,9 @@ class _SuccessScreenState extends State<SuccessScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepPurple,
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 15),
+                        horizontal: 30,
+                        vertical: 15,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),

@@ -1,8 +1,5 @@
-// lib/screens/signup_screen.dart
 import 'package:flutter/material.dart';
 import 'success_screen.dart'; // Import for navigation
-import 'welcome_screen.dart';  // Import the new screen file
-import 'signup_screen.dart';
 
 // Signup Screen w/ Interactive Form
 class SignupScreen extends StatefulWidget {
@@ -67,19 +64,6 @@ class _SignupScreenState extends State<SignupScreen> {
       });
     }
   }
-  
-  /*
-  void _submitForm() {
-    // ...
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SuccessScreen(userName: _nameController.text),
-      ),
-    );
-    // ...
-  }
-  */
 
   @override
   Widget build(BuildContext context) {
@@ -107,8 +91,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.tips_and_updates,
-                          color: Colors.deepPurple[800]),
+                      Icon(
+                        Icons.tips_and_updates,
+                        color: Colors.deepPurple[800],
+                      ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
@@ -162,8 +148,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   onTap: _selectDate,
                   decoration: InputDecoration(
                     labelText: 'Date of Birth',
-                    prefixIcon:
-                        const Icon(Icons.calendar_today, color: Colors.deepPurple),
+                    prefixIcon: const Icon(
+                      Icons.calendar_today,
+                      color: Colors.deepPurple,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -189,8 +177,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   obscureText: !_isPasswordVisible,
                   decoration: InputDecoration(
                     labelText: 'Secret Password',
-                    prefixIcon:
-                        const Icon(Icons.lock, color: Colors.deepPurple),
+                    prefixIcon: const Icon(
+                      Icons.lock,
+                      color: Colors.deepPurple,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -231,7 +221,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       ? const Center(
                           child: CircularProgressIndicator(
                             valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.deepPurple),
+                              Colors.deepPurple,
+                            ),
                           ),
                         )
                       : ElevatedButton(
@@ -250,7 +241,9 @@ class _SignupScreenState extends State<SignupScreen> {
                               Text(
                                 'Start My Adventure',
                                 style: TextStyle(
-                                    fontSize: 18, color: Colors.white),
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
                               ),
                               SizedBox(width: 10),
                               Icon(Icons.rocket_launch, color: Colors.white),
@@ -277,9 +270,7 @@ class _SignupScreenState extends State<SignupScreen> {
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: Icon(icon, color: Colors.deepPurple),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         filled: true,
         fillColor: Colors.grey[50],
       ),
