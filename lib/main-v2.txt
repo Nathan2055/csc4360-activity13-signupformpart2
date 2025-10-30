@@ -4,7 +4,9 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:confetti/confetti.dart';
-import 'screens/welcome_screen.dart'; // Import the new screen file
+import 'welcome_screen.dart';  // Import the new screen file
+import 'signup_screen.dart';
+import 'success_screen.dart';
 
 void main() {
   runApp(const SignupAdventureApp());

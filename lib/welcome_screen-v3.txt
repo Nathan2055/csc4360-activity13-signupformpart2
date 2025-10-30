@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'signup_screen.dart'; // Import for navigation
+import 'welcome_screen.dart';  // Import the new screen file
+import 'success_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

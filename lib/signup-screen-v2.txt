@@ -1,6 +1,8 @@
 // lib/screens/signup_screen.dart
 import 'package:flutter/material.dart';
 import 'success_screen.dart'; // Import for navigation
+import 'welcome_screen.dart';  // Import the new screen file
+import 'signup_screen.dart';
 
 // Signup Screen w/ Interactive Form
 class SignupScreen extends StatefulWidget {
