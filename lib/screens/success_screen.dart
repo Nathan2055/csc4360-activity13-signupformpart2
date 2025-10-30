@@ -43,13 +43,13 @@ class _SuccessScreenState extends State<SuccessScreen> {
     Widget avatarSpacingTemplate = const SizedBox(height: 24);
 
     if (widget.selectedIcon?.label == 'Smiley Face') {
-      avatar = Icon(Icons.sentiment_satisfied_outlined, size: 128);
+      avatar = Icon(Icons.sentiment_satisfied_outlined, size: 64);
       avatarSpacing = avatarSpacingTemplate;
     } else if (widget.selectedIcon?.label == 'Rocket') {
-      avatar = Icon(Icons.rocket, size: 128);
+      avatar = Icon(Icons.rocket, size: 64);
       avatarSpacing = avatarSpacingTemplate;
     } else if (widget.selectedIcon?.label == 'Paw Print') {
-      avatar = Icon(Icons.pets, size: 128);
+      avatar = Icon(Icons.pets, size: 64);
       avatarSpacing = avatarSpacingTemplate;
     }
 
