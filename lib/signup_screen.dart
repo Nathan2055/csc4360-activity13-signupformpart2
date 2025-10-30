@@ -215,8 +215,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 // Submit Button w/ Loading Animation
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
-                  width: _isLoading ? 60 : double.infinity,
-                  height: 60,
                   child: _isLoading
                       ? const Center(
                           child: CircularProgressIndicator(
