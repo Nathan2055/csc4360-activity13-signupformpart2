@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:signup_app/models/icon_enum.dart';
 import 'success_screen.dart';
+import 'package:confetti/confetti.dart';
 
 // Signup Screen w/ Interactive Form
 class SignupScreen extends StatefulWidget {
@@ -30,6 +31,7 @@ class _SignupScreenState extends State<SignupScreen>
   bool _milestone2Reached = false;
   bool _milestone3Reached = false;
   bool _milestone4Reached = false;
+  late final ConfettiController _confettiController;
 
   @override
   void initState() {
@@ -46,6 +48,9 @@ class _SignupScreenState extends State<SignupScreen>
             setState(() {});
           })
           ..repeat(reverse: true);
+    _confettiController = ConfettiController(
+      duration: const Duration(seconds: 10),
+    );
   }
 
   @override
@@ -117,6 +122,22 @@ class _SignupScreenState extends State<SignupScreen>
             key: _formKey,
             child: Column(
               children: [
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: ConfettiWidget(
+                    confettiController: _confettiController,
+                    blastDirectionality: BlastDirectionality.explosive,
+                    shouldLoop: false,
+                    colors: const [
+                      Colors.deepPurple,
+                      Colors.purple,
+                      Colors.blue,
+                      Colors.green,
+                      Colors.orange,
+                    ],
+                  ),
+                ),
+
                 // Animated Form Header
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 500),
@@ -416,21 +437,25 @@ class _SignupScreenState extends State<SignupScreen>
         _milestone1Reached = true;
         final snackBar = const SnackBar(content: Text('Great start!'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        _confettiController.play();
       }
       if (!_milestone2Reached && _progressValue >= 0.50) {
         _milestone2Reached = true;
         final snackBar = const SnackBar(content: Text('Halfway there!'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        _confettiController.play();
       }
       if (!_milestone3Reached && _progressValue >= 0.75) {
         _milestone3Reached = true;
         final snackBar = const SnackBar(content: Text('Almost done!'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        _confettiController.play();
       }
       if (!_milestone4Reached && _progressValue >= 1.0) {
         _milestone4Reached = true;
         final snackBar = const SnackBar(content: Text('Ready for adventure!'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        _confettiController.play();
       }
     });
   }
