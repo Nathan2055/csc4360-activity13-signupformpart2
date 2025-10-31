@@ -346,6 +346,7 @@ class _SignupScreenState extends State<SignupScreen>
       var condition3 = 0.0;
       var condition4 = 0.0;
       var password = _passwordController.text;
+
       // Longer than eight characters
       if (password.length > 8) {
         condition1 = 0.25;
@@ -367,15 +368,8 @@ class _SignupScreenState extends State<SignupScreen>
         condition4 = 0.25;
       }
 
-      //debugPrint('length:' + '$condition1');
-      //debugPrint('casing:' + '$condition2');
-      //debugPrint('numbers:' + '$condition3');
-      //debugPrint('symbols:' + '$condition4');
-
       _passwordStrengthValue =
           condition1 + condition2 + condition3 + condition4;
-
-      //debugPrint('semifinal:' + '$_passwordStrengthValue');
 
       if (_passwordStrengthValue == 0.0) {
         _passwordStrengthValue = 0.1;
@@ -386,10 +380,6 @@ class _SignupScreenState extends State<SignupScreen>
       } else {
         _passwordStrengthColor = Colors.red;
       }
-
-      //debugPrint('final:' + '$_passwordStrengthValue');
-
-      //debugPrint(' ');
     });
   }
 

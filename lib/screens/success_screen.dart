@@ -43,44 +43,6 @@ class _SuccessScreenState extends State<SuccessScreen> {
   Widget buildAchivementCards() {
     List<Card> cards = List.empty(growable: true);
 
-    /*
-    Widget card1 = Container();
-    Widget card2 = Container();
-    Widget card3 = Container();
-
-    if (widget.finalPasswordStrength == 1.0) {
-      card1 = Card(
-        child: ListTile(
-          leading: const Icon(Icons.security),
-          title: const Text('Strong Password Master'),
-          subtitle: const Text('Created a strong password'),
-        ),
-      );
-    }
-
-    if (DateTime.now().hour < 12) {
-      card2 = Card(
-        child: ListTile(
-          leading: const Icon(Icons.timer),
-          title: const Text('Early Bird Special'),
-          subtitle: const Text('Signed up before 12 PM'),
-        ),
-      );
-    }
-
-    if (widget.finalProfileCompletion == 1.0) {
-      card3 = Card(
-        child: ListTile(
-          leading: const Icon(Icons.edit_document),
-          title: Text('Profile Completer'),
-          subtitle: Text('Filled in all profile fields'),
-        ),
-      );
-    }
-
-    return ListView(children: [card1, card2, card3]);
-    */
-
     if (widget.finalPasswordStrength == 1.0) {
       cards.add(
         Card(
