@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:signup_app/models/icon_enum.dart';
-import 'package:signup_app/models/shake_widget.dart';
 import 'success_screen.dart';
 import 'package:confetti/confetti.dart';
 
@@ -112,6 +111,62 @@ class _SignupScreenState extends State<SignupScreen>
 
   @override
   Widget build(BuildContext context) {
+    AnimationController shakeAnimationController1 = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
+    Animation<double> offsetAnimation1 =
+        Tween(begin: 0.0, end: 24.0)
+            .chain(CurveTween(curve: Curves.elasticIn))
+            .animate(shakeAnimationController1)
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              shakeAnimationController1.reverse();
+            }
+          });
+
+    AnimationController shakeAnimationController2 = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
+    Animation<double> offsetAnimation2 =
+        Tween(begin: 0.0, end: 24.0)
+            .chain(CurveTween(curve: Curves.elasticIn))
+            .animate(shakeAnimationController2)
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              shakeAnimationController2.reverse();
+            }
+          });
+
+    AnimationController shakeAnimationController3 = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
+    Animation<double> offsetAnimation3 =
+        Tween(begin: 0.0, end: 24.0)
+            .chain(CurveTween(curve: Curves.elasticIn))
+            .animate(shakeAnimationController3)
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              shakeAnimationController3.reverse();
+            }
+          });
+
+    AnimationController shakeAnimationController4 = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
+    Animation<double> offsetAnimation4 =
+        Tween(begin: 0.0, end: 24.0)
+            .chain(CurveTween(curve: Curves.elasticIn))
+            .animate(shakeAnimationController4)
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              shakeAnimationController4.reverse();
+            }
+          });
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create Your Account 🎉'),
@@ -172,40 +227,66 @@ class _SignupScreenState extends State<SignupScreen>
                 const SizedBox(height: 30),
 
                 // Name Field
-                ShakeWidget(
-                  key: shakeKey,
-                  child: _buildTextField(
-                    controller: _nameController,
-                    label: 'Adventure Name',
-                    icon: Icons.person,
-                    validator: (value) {
-                      if (value == null || value.isEmpty || value == 'test') {
-                        setState(() {
-                          shakeKeyIterator = shakeKeyIterator + 1;
-                          shakeKey = Key(shakeKeyIterator.toString());
-                        });
-                        return 'What should we call you on this adventure?';
-                      }
-                      return null;
-                    },
-                  ),
+                AnimatedBuilder(
+                  animation: offsetAnimation1,
+                  builder: (context, child) {
+                    return Container(
+                      margin: EdgeInsets.symmetric(horizontal: 24),
+                      padding: EdgeInsets.only(
+                        left: offsetAnimation1.value + 45,
+                        right: 45 - offsetAnimation1.value,
+                      ),
+                      child: _buildTextField(
+                        controller: _nameController,
+                        label: 'Adventure Name',
+                        icon: Icons.person,
+                        validator: (value) {
+                          setState(() {
+                            shakeAnimationController1.forward(from: 0.0);
+                          });
+                          if (value == null || value.isEmpty) {
+                            return 'What should we call you on this adventure?';
+                          }
+                          return null;
+                        },
+                      ),
+                    );
+                  },
                 ),
 
                 const SizedBox(height: 20),
 
                 // Email Field
-                _buildTextField(
-                  controller: _emailController,
-                  label: 'Email Address',
-                  icon: Icons.email,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'We need your email for adventure updates!';
-                    }
-                    if (!value.contains('@') || !value.contains('.')) {
-                      return 'Oops! That doesn\'t look like a valid email';
-                    }
-                    return null;
+                AnimatedBuilder(
+                  animation: offsetAnimation2,
+                  builder: (context, child) {
+                    return Container(
+                      margin: EdgeInsets.symmetric(horizontal: 24),
+                      padding: EdgeInsets.only(
+                        left: offsetAnimation2.value + 45,
+                        right: 45 - offsetAnimation2.value,
+                      ),
+                      child: _buildTextField(
+                        controller: _emailController,
+                        label: 'Email Address',
+                        icon: Icons.email,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            setState(() {
+                              shakeAnimationController2.forward(from: 0.0);
+                            });
+                            return 'We need your email for adventure updates!';
+                          }
+                          if (!value.contains('@') || !value.contains('.')) {
+                            setState(() {
+                              shakeAnimationController2.forward(from: 0.0);
+                            });
+                            return 'Oops! That doesn\'t look like a valid email';
+                          }
+                          return null;
+                        },
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(height: 20),
@@ -233,6 +314,9 @@ class _SignupScreenState extends State<SignupScreen>
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
+                      setState(() {
+                        shakeAnimationController3.forward(from: 0.0);
+                      });
                       return 'When did your adventure begin?';
                     }
                     return null;
@@ -273,9 +357,15 @@ class _SignupScreenState extends State<SignupScreen>
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
+                      setState(() {
+                        shakeAnimationController4.forward(from: 0.0);
+                      });
                       return 'Every adventurer needs a secret password!';
                     }
                     if (value.length < 6) {
+                      setState(() {
+                        shakeAnimationController4.forward(from: 0.0);
+                      });
                       return 'Make it stronger! At least 6 characters';
                     }
                     return null;
