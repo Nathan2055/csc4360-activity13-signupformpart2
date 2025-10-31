@@ -89,6 +89,8 @@ class _SignupScreenState extends State<SignupScreen>
             builder: (context) => SuccessScreen(
               userName: _nameController.text,
               selectedIcon: _selectedIcon,
+              finalProfileCompletion: _progressValue,
+              finalPasswordStrength: _passwordStrengthValue,
             ),
           ),
         );

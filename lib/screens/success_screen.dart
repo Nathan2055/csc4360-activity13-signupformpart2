@@ -7,11 +7,15 @@ import 'package:signup_app/models/icon_enum.dart';
 class SuccessScreen extends StatefulWidget {
   final String userName;
   final IconLabel? selectedIcon;
+  final double finalProfileCompletion;
+  final double finalPasswordStrength;
 
   const SuccessScreen({
     super.key,
     required this.userName,
     required this.selectedIcon,
+    required this.finalProfileCompletion,
+    required this.finalPasswordStrength,
   });
 
   @override
@@ -34,6 +38,93 @@ class _SuccessScreenState extends State<SuccessScreen> {
   void dispose() {
     _confettiController.dispose();
     super.dispose();
+  }
+
+  Widget buildAchivementCards() {
+    List<Card> cards = List.empty(growable: true);
+
+    /*
+    Widget card1 = Container();
+    Widget card2 = Container();
+    Widget card3 = Container();
+
+    if (widget.finalPasswordStrength == 1.0) {
+      card1 = Card(
+        child: ListTile(
+          leading: const Icon(Icons.security),
+          title: const Text('Strong Password Master'),
+          subtitle: const Text('Created a strong password'),
+        ),
+      );
+    }
+
+    if (DateTime.now().hour < 12) {
+      card2 = Card(
+        child: ListTile(
+          leading: const Icon(Icons.timer),
+          title: const Text('Early Bird Special'),
+          subtitle: const Text('Signed up before 12 PM'),
+        ),
+      );
+    }
+
+    if (widget.finalProfileCompletion == 1.0) {
+      card3 = Card(
+        child: ListTile(
+          leading: const Icon(Icons.edit_document),
+          title: Text('Profile Completer'),
+          subtitle: Text('Filled in all profile fields'),
+        ),
+      );
+    }
+
+    return ListView(children: [card1, card2, card3]);
+    */
+
+    if (widget.finalPasswordStrength == 1.0) {
+      cards.add(
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.security),
+            title: const Text('Strong Password Master'),
+            subtitle: const Text('Created a strong password'),
+          ),
+        ),
+      );
+    }
+
+    if (DateTime.now().hour < 12) {
+      cards.add(
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.timer),
+            title: const Text('Early Bird Special'),
+            subtitle: const Text('Signed up before 12 PM'),
+          ),
+        ),
+      );
+    }
+
+    if (widget.finalProfileCompletion == 1.0) {
+      cards.add(
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.edit_document),
+            title: Text('Profile Completer'),
+            subtitle: Text('Filled in all profile fields'),
+          ),
+        ),
+      );
+    }
+
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: cards.length,
+      itemBuilder: (context, index) {
+        return cards[index];
+      },
+    );
   }
 
   @override
@@ -133,7 +224,11 @@ class _SuccessScreenState extends State<SuccessScreen> {
                     style: TextStyle(fontSize: 18, color: Colors.grey),
                   ),
 
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 20),
+
+                  buildAchivementCards(),
+
+                  const SizedBox(height: 20),
 
                   // Daaa... Continue Button
                   ElevatedButton(
