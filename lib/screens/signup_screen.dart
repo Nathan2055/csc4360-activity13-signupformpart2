@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:signup_app/models/icon_enum.dart';
 import 'success_screen.dart';
 import 'package:confetti/confetti.dart';
+import 'package:just_audio/just_audio.dart';
 
 // Signup Screen w/ Interactive Form
 class SignupScreen extends StatefulWidget {
@@ -66,6 +67,24 @@ class _SignupScreenState extends State<SignupScreen>
     super.dispose();
   }
 
+  // Define Sound Files
+  final String sound1 = 'sounds/1-Ceres.wav';
+  final String sound2 = 'sounds/2-Tethys.wav';
+  final String sound3 = 'sounds/3-Salacia.wav';
+  final String sound4 = 'sounds/4-Io.wav';
+  final String sound5 = 'sounds/5-Elara.wav';
+
+  // Audio Player
+  void _playAudio(String sound) {
+    debugPrint("began playing $sound");
+    AudioPlayer player = AudioPlayer();
+    player.setAsset(sound);
+    player.play();
+    player.stop();
+    player.dispose();
+    debugPrint("finished playing $sound");
+  }
+
   // Date Picker Function
   Future<void> _selectDate() async {
     DateTime? picked = await showDatePicker(
@@ -82,6 +101,8 @@ class _SignupScreenState extends State<SignupScreen>
   }
 
   void _submitForm() {
+    _playAudio(sound5);
+
     if (_formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
@@ -563,24 +584,28 @@ class _SignupScreenState extends State<SignupScreen>
         final snackBar = const SnackBar(content: Text('Great start!'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         _confettiController.play();
+        _playAudio(sound1);
       }
       if (!_milestone2Reached && _progressValue >= 0.50) {
         _milestone2Reached = true;
         final snackBar = const SnackBar(content: Text('Halfway there!'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         _confettiController.play();
+        _playAudio(sound2);
       }
       if (!_milestone3Reached && _progressValue >= 0.75) {
         _milestone3Reached = true;
         final snackBar = const SnackBar(content: Text('Almost done!'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         _confettiController.play();
+        _playAudio(sound3);
       }
       if (!_milestone4Reached && _progressValue >= 1.0) {
         _milestone4Reached = true;
         final snackBar = const SnackBar(content: Text('Ready for adventure!'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         _confettiController.play();
+        _playAudio(sound4);
       }
     });
   }
