@@ -26,6 +26,10 @@ class _SignupScreenState extends State<SignupScreen>
   late AnimationController _passwordStrengthController;
   double _passwordStrengthValue = 0.1;
   Color _passwordStrengthColor = Colors.red;
+  bool _milestone1Reached = false;
+  bool _milestone2Reached = false;
+  bool _milestone3Reached = false;
+  bool _milestone4Reached = false;
 
   @override
   void initState() {
@@ -405,10 +409,37 @@ class _SignupScreenState extends State<SignupScreen>
     });
   }
 
+  void _updateMilestones() {
+    setState(() {
+      // These are controlled by booleans to ensure that milestones are only hit once
+      if (!_milestone1Reached && _progressValue >= 0.25) {
+        _milestone1Reached = true;
+        final snackBar = const SnackBar(content: Text('Great start!'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+      if (!_milestone2Reached && _progressValue >= 0.50) {
+        _milestone2Reached = true;
+        final snackBar = const SnackBar(content: Text('Halfway there!'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+      if (!_milestone3Reached && _progressValue >= 0.75) {
+        _milestone3Reached = true;
+        final snackBar = const SnackBar(content: Text('Almost done!'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+      if (!_milestone4Reached && _progressValue >= 1.0) {
+        _milestone4Reached = true;
+        final snackBar = const SnackBar(content: Text('Ready for adventure!'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    });
+  }
+
   void _textFieldCallback() {
     setState(() {
       _updateProgressBar();
       _updatePasswordStrength();
+      _updateMilestones();
     });
   }
 
@@ -416,6 +447,7 @@ class _SignupScreenState extends State<SignupScreen>
     setState(() {
       _updateProgressBar();
       _updatePasswordStrength();
+      _updateMilestones();
     });
   }
 
