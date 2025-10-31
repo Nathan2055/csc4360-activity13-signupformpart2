@@ -1,0 +1,5 @@
+All sounds from the Android Open Source Project:
+- URL: https://android.googlesource.com/platform/frameworks/base.git/+/refs/heads/main/data/sounds/notifications/material/ogg
+- Date: 21 August 2014
+- Author: Google
+- License: Apache License 2.0
