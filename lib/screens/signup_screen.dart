@@ -35,6 +35,7 @@ class _SignupScreenState extends State<SignupScreen>
   late final ConfettiController _confettiController;
   int shakeKeyIterator = 1;
   Key shakeKey = Key('1');
+  AudioPlayer player = AudioPlayer();
 
   @override
   void initState() {
@@ -54,35 +55,22 @@ class _SignupScreenState extends State<SignupScreen>
     _confettiController = ConfettiController(
       duration: const Duration(seconds: 10),
     );
+    player.setAsset('sounds/1-Ceres.wav'); // preload audio
   }
 
   @override
   void dispose() {
+    player.stop();
+    player.dispose();
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _dobController.dispose();
     _progressController.dispose();
     _passwordStrengthController.dispose();
+    _iconController.dispose();
+    _confettiController.dispose();
     super.dispose();
-  }
-
-  // Define Sound Files
-  final String sound1 = 'sounds/1-Ceres.wav';
-  final String sound2 = 'sounds/2-Tethys.wav';
-  final String sound3 = 'sounds/3-Salacia.wav';
-  final String sound4 = 'sounds/4-Io.wav';
-  final String sound5 = 'sounds/5-Elara.wav';
-
-  // Audio Player
-  void _playAudio(String sound) {
-    debugPrint("began playing $sound");
-    AudioPlayer player = AudioPlayer();
-    player.setAsset(sound);
-    player.play();
-    player.stop();
-    player.dispose();
-    debugPrint("finished playing $sound");
   }
 
   // Date Picker Function
@@ -101,7 +89,8 @@ class _SignupScreenState extends State<SignupScreen>
   }
 
   void _submitForm() {
-    _playAudio(sound5);
+    player.setAsset('sounds/5-Elara.wav');
+    player.play();
 
     if (_formKey.currentState!.validate()) {
       setState(() {
@@ -584,28 +573,32 @@ class _SignupScreenState extends State<SignupScreen>
         final snackBar = const SnackBar(content: Text('Great start!'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         _confettiController.play();
-        _playAudio(sound1);
+        player.setAsset('sounds/1-Ceres.wav');
+        player.play();
       }
       if (!_milestone2Reached && _progressValue >= 0.50) {
         _milestone2Reached = true;
         final snackBar = const SnackBar(content: Text('Halfway there!'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         _confettiController.play();
-        _playAudio(sound2);
+        player.setAsset('sounds/2-Tethys.wav');
+        player.play();
       }
       if (!_milestone3Reached && _progressValue >= 0.75) {
         _milestone3Reached = true;
         final snackBar = const SnackBar(content: Text('Almost done!'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         _confettiController.play();
-        _playAudio(sound3);
+        player.setAsset('sounds/3-Salacia.wav');
+        player.play();
       }
       if (!_milestone4Reached && _progressValue >= 1.0) {
         _milestone4Reached = true;
         final snackBar = const SnackBar(content: Text('Ready for adventure!'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         _confettiController.play();
-        _playAudio(sound4);
+        player.setAsset('sounds/4-Io.wav');
+        player.play();
       }
     });
   }
