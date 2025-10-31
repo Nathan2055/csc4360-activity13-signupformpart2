@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:signup_app/models/icon_enum.dart';
+import 'package:signup_app/models/shake_widget.dart';
 import 'success_screen.dart';
 import 'package:confetti/confetti.dart';
 
@@ -32,6 +33,8 @@ class _SignupScreenState extends State<SignupScreen>
   bool _milestone3Reached = false;
   bool _milestone4Reached = false;
   late final ConfettiController _confettiController;
+  int shakeKeyIterator = 1;
+  Key shakeKey = Key('1');
 
   @override
   void initState() {
@@ -169,17 +172,25 @@ class _SignupScreenState extends State<SignupScreen>
                 const SizedBox(height: 30),
 
                 // Name Field
-                _buildTextField(
-                  controller: _nameController,
-                  label: 'Adventure Name',
-                  icon: Icons.person,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'What should we call you on this adventure?';
-                    }
-                    return null;
-                  },
+                ShakeWidget(
+                  key: shakeKey,
+                  child: _buildTextField(
+                    controller: _nameController,
+                    label: 'Adventure Name',
+                    icon: Icons.person,
+                    validator: (value) {
+                      if (value == null || value.isEmpty || value == 'test') {
+                        setState(() {
+                          shakeKeyIterator = shakeKeyIterator + 1;
+                          shakeKey = Key(shakeKeyIterator.toString());
+                        });
+                        return 'What should we call you on this adventure?';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
+
                 const SizedBox(height: 20),
 
                 // Email Field
