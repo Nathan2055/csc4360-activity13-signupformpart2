@@ -292,83 +292,107 @@ class _SignupScreenState extends State<SignupScreen>
                 const SizedBox(height: 20),
 
                 // DOB w/Calendar
-                TextFormField(
-                  controller: _dobController,
-                  readOnly: true,
-                  onTap: _selectDate,
-                  decoration: InputDecoration(
-                    labelText: 'Date of Birth',
-                    prefixIcon: const Icon(
-                      Icons.calendar_today,
-                      color: Colors.deepPurple,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    filled: true,
-                    fillColor: Colors.grey[50],
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.date_range),
-                      onPressed: _selectDate,
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      setState(() {
-                        shakeAnimationController3.forward(from: 0.0);
-                      });
-                      return 'When did your adventure begin?';
-                    }
-                    return null;
+                AnimatedBuilder(
+                  animation: offsetAnimation3,
+                  builder: (context, child) {
+                    return Container(
+                      margin: EdgeInsets.symmetric(horizontal: 24),
+                      padding: EdgeInsets.only(
+                        left: offsetAnimation3.value + 45,
+                        right: 45 - offsetAnimation3.value,
+                      ),
+                      child: TextFormField(
+                        controller: _dobController,
+                        readOnly: true,
+                        onTap: _selectDate,
+                        decoration: InputDecoration(
+                          labelText: 'Date of Birth',
+                          prefixIcon: const Icon(
+                            Icons.calendar_today,
+                            color: Colors.deepPurple,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[50],
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.date_range),
+                            onPressed: _selectDate,
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            setState(() {
+                              shakeAnimationController3.forward(from: 0.0);
+                            });
+                            return 'When did your adventure begin?';
+                          }
+                          return null;
+                        },
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(height: 20),
 
                 // Pswd Field w/ Toggle
-                TextFormField(
-                  controller: _passwordController,
-                  obscureText: !_isPasswordVisible,
-                  onEditingComplete: _textFieldCallback,
-                  onChanged: _textFieldCallbackString,
-                  decoration: InputDecoration(
-                    labelText: 'Secret Password',
-                    prefixIcon: const Icon(
-                      Icons.lock,
-                      color: Colors.deepPurple,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    filled: true,
-                    fillColor: Colors.grey[50],
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _isPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                        color: Colors.deepPurple,
+                AnimatedBuilder(
+                  animation: offsetAnimation4,
+                  builder: (context, child) {
+                    return Container(
+                      margin: EdgeInsets.symmetric(horizontal: 24),
+                      padding: EdgeInsets.only(
+                        left: offsetAnimation4.value + 45,
+                        right: 45 - offsetAnimation4.value,
                       ),
-                      onPressed: () {
-                        setState(() {
-                          _isPasswordVisible = !_isPasswordVisible;
-                        });
-                      },
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      setState(() {
-                        shakeAnimationController4.forward(from: 0.0);
-                      });
-                      return 'Every adventurer needs a secret password!';
-                    }
-                    if (value.length < 6) {
-                      setState(() {
-                        shakeAnimationController4.forward(from: 0.0);
-                      });
-                      return 'Make it stronger! At least 6 characters';
-                    }
-                    return null;
+                      child: TextFormField(
+                        controller: _passwordController,
+                        obscureText: !_isPasswordVisible,
+                        onEditingComplete: _textFieldCallback,
+                        onChanged: _textFieldCallbackString,
+                        decoration: InputDecoration(
+                          labelText: 'Secret Password',
+                          prefixIcon: const Icon(
+                            Icons.lock,
+                            color: Colors.deepPurple,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[50],
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _isPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Colors.deepPurple,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isPasswordVisible = !_isPasswordVisible;
+                              });
+                            },
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            setState(() {
+                              shakeAnimationController4.forward(from: 0.0);
+                            });
+                            return 'Every adventurer needs a secret password!';
+                          }
+                          if (value.length < 6) {
+                            setState(() {
+                              shakeAnimationController4.forward(from: 0.0);
+                            });
+                            return 'Make it stronger! At least 6 characters';
+                          }
+                          return null;
+                        },
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(height: 10),
